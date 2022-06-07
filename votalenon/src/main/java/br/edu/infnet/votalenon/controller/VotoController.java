@@ -6,8 +6,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import br.edu.infnet.votalenon.model.domain.Eleicao;
 import br.edu.infnet.votalenon.model.domain.Voto;
+import br.edu.infnet.votalenon.model.service.CandidatoService;
+import br.edu.infnet.votalenon.model.service.EleicaoService;
 import br.edu.infnet.votalenon.model.service.EleitorService;
 import br.edu.infnet.votalenon.model.service.VotoService;
 
@@ -18,10 +22,19 @@ public class VotoController {
 	private VotoService votoService;
 	@Autowired
 	private EleitorService eleitorService;
+	@Autowired
+	private EleicaoService eleicaoService;
+	@Autowired
+	private CandidatoService candidatoService;
 	
 	@GetMapping(value = "/voto")
-	public String cadastro(Model model) {
+	public String cadastro(Model model, @RequestParam Integer idEleicao) {
+		
+		Eleicao eleicao = eleicaoService.obterPorId(idEleicao);
 		model.addAttribute("eleitores", eleitorService.obterLista());
+		model.addAttribute("candidatos", candidatoService.obterPorEleicao(eleicao));
+		model.addAttribute("eleicao", eleicao);
+
 		return "voto/cadastro";
 	}
 	
@@ -34,10 +47,12 @@ public class VotoController {
 		return "redirect:/votos";
 	}
 	
+	
 	@GetMapping(value = "/votos")
 	private String lista(Model model) {
 		
 		model.addAttribute("lista", votoService.obterLista());
+		model.addAttribute("eleicoes", eleicaoService.obterLista());
 		
 		return "voto/lista";
 	}

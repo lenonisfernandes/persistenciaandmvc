@@ -19,14 +19,19 @@
 		  <strong>Confirmação!</strong> ${mensagem}
 		</div>	  
 	  </c:if>
-
-	  <form action="/voto" method="get">
-	    <button type="submit" class="btn btn-primary">Novo</button>
+		<form action="/voto" method="get">
+			<label>Eleições:</label>
+		  	<select class="form-control" name="idEleicao">
+		    	<c:forEach var="e" items="${eleicoes}">
+		    	<option value="${e.id}">${e.descricao}</option>
+		    	</c:forEach>
+		  	</select>
+			<button type="submit" class="btn btn-primary">Novo</button>
 	  </form>
-	  
+	 	
+	 	<c:if test="${not empty lista}">
 	  <hr>
-		
-	<c:if test="${not empty lista}">		
+			
 		<h2>Total de Votos: ${lista.size()}</h2>
 		  
 		<table class="table table-striped">
@@ -36,6 +41,8 @@
 		        <th>Data</th>
 		        <th>Localização</th>
 		        <th>Eleitor</th>
+		        <th>Eleição</th>
+		        <th>Candidato</th>
 		        <th></th>
 		      </tr>
 		    </thead>
@@ -46,6 +53,8 @@
 			        <td>${v.data}</td>
 			        <td>${v.localizacao}</td>
 			        <td>${v.eleitor.nome }</td>
+			        <td>${v.eleicao.descricao}</td>
+			        <td>${v.candidato.nome }</td>
 			        <td><a href="/voto/${v.id}/excluir">excluir</a></td>
 			      </tr>
 		      </c:forEach>		      

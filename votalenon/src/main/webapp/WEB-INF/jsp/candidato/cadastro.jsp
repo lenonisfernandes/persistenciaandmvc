@@ -24,6 +24,22 @@
 	      <label>Nome:</label>
 	      <input type="text" class="form-control" placeholder="Entre com o seu nome" name="nome" value="Elberth L C Moraes">
 	    </div>
+	    
+	   	<div class="form-group">
+		  	<c:if test="${not empty eleicoes}">
+		  	<label>Eleição:</label>
+		  	<select class="form-control" name="eleicao.id">
+		    	<c:forEach var="e" items="${eleicoes}">
+		    	<option value="${e.id}">${e.descricao}</option>
+		    	</c:forEach>
+		  	</select>
+		  	</c:if>
+		  
+			<c:if test="${empty eleicoes}">
+				<c:set var="botao" value="disabled"/>
+		  		<label>Não existem eleições cadastradas!!!</label>
+		  	</c:if>
+		</div>
 
 	    <button type="submit" class="btn btn-primary">Cadastrar</button>
 	  </form>

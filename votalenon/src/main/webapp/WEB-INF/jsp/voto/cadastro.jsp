@@ -36,6 +36,28 @@
 	      <label>Localização:</label>
 	      <input type="text" class="form-control" placeholder="Entre com a sua localização" name="localizacao" value="online">
 	    </div>
+	    
+	    <div class="mb-3 mt-3">
+	      <label>Eleição:</label>
+	      <input type="text" class="form-control" value="${eleicao.descricao }" readonly>
+	    </div>
+	    
+	    <div class="form-group">
+		  	<c:if test="${not empty candidatos}">
+		  	<label>Candidato:</label>
+		  	<select class="form-control" name="candidato.id">
+		    	<c:forEach var="c" items="${candidatos}">
+		    	<option value="${c.id}">${c.nome}</option>
+		    	</c:forEach>
+		  	</select>
+		  	</c:if>
+		  
+			<c:if test="${empty candidatos}">
+				<c:set var="botao" value="disabled"/>
+		  		<label>Não existem candidatos cadastrados para essa eleição!!!</label>
+		  	</c:if>
+		</div>
+		<input type="hidden" name="eleicao" value="${eleicao.id }">
 
 	    <button type="submit" class="btn btn-primary">Cadastrar</button>
 	  </form>

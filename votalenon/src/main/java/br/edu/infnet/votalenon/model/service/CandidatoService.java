@@ -1,5 +1,6 @@
 package br.edu.infnet.votalenon.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,17 @@ public class CandidatoService {
 	}
 	
 	public List<Candidato> obterPorEleicao(Eleicao eleicao) {
-		return (List<Candidato>) candidatoRepository.findAll();
+		//return (List<Candidato>) candidatoRepository.findAll();
+		
+		List<Candidato> candidatos = new ArrayList<Candidato>();
+		
+		for(Candidato c : candidatoRepository.findAll()) {
+			if (c.getEleicao()!=null && c.getEleicao().equals(eleicao)) {
+				candidatos.add(c);
+			}
+		}
+		
+		return candidatos;
 	}
 	
 	public void excluir(Integer id) {
