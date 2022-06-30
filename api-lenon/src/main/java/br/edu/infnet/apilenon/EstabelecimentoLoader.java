@@ -5,7 +5,6 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import br.edu.infnet.apilenon.model.domain.Estabelecimento;
 import br.edu.infnet.apilenon.model.service.EstabelecimentoService;
 
 @Component

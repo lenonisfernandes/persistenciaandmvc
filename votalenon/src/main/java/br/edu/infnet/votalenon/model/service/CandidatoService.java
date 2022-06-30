@@ -1,49 +1,34 @@
 package br.edu.infnet.votalenon.model.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.edu.infnet.votalenon.clients.ICandidatoClient;
 import br.edu.infnet.votalenon.model.domain.Candidato;
 import br.edu.infnet.votalenon.model.domain.Eleicao;
-import br.edu.infnet.votalenon.model.repository.CandidatoRepository;
 
 @Service
 public class CandidatoService {
 	
-	@Autowired CandidatoRepository candidatoRepository;
+	@Autowired 
+	private ICandidatoClient candidatoClient;
 	
 	public void incluir(Candidato candidato) {
-		try {
-			candidatoRepository.save(candidato);
-			System.out.println("Inclusão realizada com sucesso: "+candidato.getNome());
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		candidatoClient.incluir(candidato);
 	}
 	
 	public List<Candidato> obterLista() {
-		return (List<Candidato>) candidatoRepository.findAll();
+		return candidatoClient.obterLista();
 	}
 	
 	public List<Candidato> obterPorEleicao(Eleicao eleicao) {
-		//return (List<Candidato>) candidatoRepository.findAll();
-		
-		List<Candidato> candidatos = new ArrayList<Candidato>();
-		
-		for(Candidato c : candidatoRepository.findAll()) {
-			if (c.getEleicao()!=null && c.getEleicao().equals(eleicao)) {
-				candidatos.add(c);
-			}
-		}
-		
-		return candidatos;
+		return candidatoClient.obterPorEleicao(eleicao.getId());
 	}
 	
 	public void excluir(Integer id) {
-		candidatoRepository.deleteById(id);
+		candidatoClient.excluir(id);
 	}
 
 }

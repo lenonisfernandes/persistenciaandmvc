@@ -19,12 +19,13 @@ public class EnderecoLoader implements ApplicationRunner{
 	public void run(ApplicationArguments args) throws Exception {
 		
 		Endereco endereco = new Endereco();
+		String cep = "12345678";
 		
 		try {
 			endereco.setBairro("Centro");
-			endereco.setCep("12345678");
+			endereco.setCep(cep);
 			endereco.setComplemento("Segundo andar");
-			endereco.setLocalicade("Rio de Janeiro");
+			endereco.setLocalidade("Rio de Janeiro");
 			endereco.setLogradouro("São José, 90");
 			endereco.setUf("RJ");
 			
@@ -36,13 +37,12 @@ public class EnderecoLoader implements ApplicationRunner{
 			
 			System.out.println("Gravação do endereço não realizada!!!");
 			
-			//obterPorCep
-			
 			endereco.setCep("87654321");
+			
 			try {
 				enderecoService.incluir(endereco);
 			} catch (Exception e2) {
-				// TODO: handle exception
+			
 			}
 		}
 		
@@ -53,7 +53,7 @@ public class EnderecoLoader implements ApplicationRunner{
 		try {
 			enderecoService.excluir(1);
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 		}
 		
 		
