@@ -9,10 +9,20 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 @Entity
 @Table(name = "TUsuario", uniqueConstraints = @UniqueConstraint(columnNames = { "login" }))
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Usuario {
+@JsonTypeInfo(
+		use=JsonTypeInfo.Id.NAME, 
+		include=JsonTypeInfo.As.PROPERTY, 
+		property="tipo")
+@JsonSubTypes({
+	@JsonSubTypes.Type(value= Estabelecimento.class, name = "Estabelecimento"),  
+	@JsonSubTypes.Type(value= Funcionario.class, name = "Funcionario")})
+public abstract class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

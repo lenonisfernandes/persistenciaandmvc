@@ -16,15 +16,15 @@ public class UsuarioLoader implements ApplicationRunner{
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-//		System.out.println("Execução do loader do Usuario:");
-//		Usuario usuario = usuarioService.validar("f99999999999", "123");
-//		try {
-//			usuarioService.excluir(usuario.getId());
-//			
-//			System.out.println("Exclusão do Usuário " + usuario.getNome() + " realizada com sucesso.");
-//		} catch (Exception e) {
-//			System.out.println("[ERROR] Impossível excluir o usuário "+usuario.getNome());
-//		}
+		System.out.println("Execução do loader do Usuario:");
+		Usuario usuario = usuarioService.validar("f99999999999", "123");
+		try {
+			usuarioService.excluir(usuario.getId());
+			
+			System.out.println("Exclusão do Usuário " + usuario.getNome() + " realizada com sucesso.");
+		} catch (Exception e) {
+			System.out.println("[ERROR] Impossível excluir o usuário "+usuario.getNome());
+		}
 					
 
 		
